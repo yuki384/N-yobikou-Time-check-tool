@@ -1,18 +1,53 @@
-var times = document.getElementsByClassName('movie-length');
-var goodtimes = document.querySelectorAll(".good .movie-length");
-var time = 0;
-for (var i=0; i<times.length; i++){
-  time = Number(times[i].innerText.substr(0,2))*60+Number(times[i].innerText.substr(-2))+time;
+Number.prototype.secToTime = function() {
+	const h = (this / 3600) >> 0;
+	const m = (this % 3600 / 60) >> 0;
+	const s = this % 60;
+
+	return `${h}時間${m}分${s}秒`;
 }
-var goukei = "すべての授業: "+Math.floor(time/3600)+"時間"+Math.floor((time%3600)/60)+"分"+(time%60)+"秒";
 
-var goodtime=0;
-for (var i=0; i<goodtimes.length; i++){
-  goodtime = Number(goodtimes[i].innerText.substr(0,2))*60+Number(goodtimes[i].innerText.substr(-2))+goodtime;
+String.prototype.toSec = function() {
+  return this.split(':').reduce((x, y) => x * 60 + (y >> 0));
 }
-var goodgoukei = "視聴済み: "+Math.floor(goodtime/3600)+"時間"+Math.floor((goodtime%3600)/60)+"分"+(goodtime%60)+"秒";
 
-var remaininggoukei="未視聴: "+Math.floor((time-goodtime)/3600)+"時間"+Math.floor(((time-goodtime)%3600)/60)+"分"+((time-goodtime)%60)+"秒";
+Array.prototype.sum = function() {
+	return this.reduce((x, y) => x + y);
+}
 
-var hyouji = document.getElementsByClassName('description');
-hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei+"</div></div>"+hyouji[0].innerHTML;
+// total: 全時間, end: 再生済み
+const time = {
+	total: null,
+	end: null,
+  
+  update: () => {
+    time.total = [...document.getElementsByClassName('movie-length')].map(dom => dom.innerText.toSec()).sum();
+    time.end = [...document.getElementsByClassName('good')].map(dom => dom.innerText.match(/(\d+:\d+)$/)[0].toSec()).sum();
+  }
+};
+
+const output = document.getElementsByClassName('description')[0];
+const description = output.innerHTML;
+
+const display = () => {
+  output.innerHTML = `
+    <div class='u-card'>
+      <div class='u-list-header typo-list-title'>この単元の進捗状況</div>
+        <div class='u-card-inner'>
+          <p>合計時間 : ${time.total.secToTime()}</p>
+          <p>終了時間 : ${time.end.secToTime()}</p>
+          <p>残り時間 : ${(time.total - time.end).secToTime()}</p>
+        </div>
+      </div>
+    </div>
+    ${description}
+	`;
+};
+
+const main = () => {
+  time.update();
+  display();
+
+  requestAnimationFrame(main);
+};
+
+main();
