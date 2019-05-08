@@ -1,0 +1,12 @@
+{
+  "name": "class-remaining-time",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "授業の残り時間を表示し、快適に勉強計画を立てられるように、サポートします。",
+  "content_scripts": [{
+    "matches": ["https://www.nnn.ed.nico/courses/*/chapters/*"],
+    "js": [
+      "content.js"
+    ]
+  }]
+}
