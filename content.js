@@ -6,7 +6,7 @@ Number.prototype.secToTime = function() {
 	return `${h}時間${m}分${s}秒`;
 }
 
-String.prototype.toSec = function() {
+String.prototype.timeToSec = function() {
 	return this.split(':').reduce((x, y) => x * 60 + (y >> 0));
 }
 
@@ -14,14 +14,13 @@ Array.prototype.sum = function() {
 	return this.reduce((x, y) => x + y);
 }
 
-// total: 全時間, end: 再生済み
 const time = {
 	total: null,
 	end: null,
 
 	update: () => {
-		time.total = [...document.getElementsByClassName('movie-length')].map(dom => dom.innerText.toSec()).sum();
-		time.end = [...document.getElementsByClassName('good')].map(dom => dom.innerText.match(/(\d+:\d+)$/)[0].toSec()).sum();
+		time.total = [...document.getElementsByClassName('movie-length')].map(dom => dom.innerText.timeToSec()).sum();
+		time.end = [...document.getElementsByClassName('good')].map(dom => dom.innerText.match(/(\d+:\d+)$/)[0].timeToSec()).sum();
 	}
 };
 
