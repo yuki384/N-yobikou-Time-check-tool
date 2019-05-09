@@ -1,7 +1,7 @@
 let times = document.getElementsByClassName('movie-length');
 let goodtimes = document.querySelectorAll(".good .movie-length");
 let time = 0;
-let (let i=0; i<times.length; i++){
+for (let i=0; i<times.length; i++){
   time = Number(times[i].innerText.substr(0,2))*60+Number(times[i].innerText.substr(-2))+time;
 }
 let goukei = "すべての授業: "+Math.floor(time/3600)+"時間"+Math.floor((time%3600)/60)+"分"+(time%60)+"秒";
