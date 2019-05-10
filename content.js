@@ -15,4 +15,7 @@ var goodgoukei = "視聴済み: "+Math.floor(goodtime/3600)+"時間"+Math.floor(
 var remaininggoukei="未視聴: "+Math.floor((time-goodtime)/3600)+"時間"+Math.floor(((time-goodtime)%3600)/60)+"分"+((time-goodtime)%60)+"秒";
 
 var hyouji = document.getElementsByClassName('description');
+if(hyouji === undefined){
+	location.reload();
+}
 hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei+"</div></div>"+hyouji[0].innerHTML;
