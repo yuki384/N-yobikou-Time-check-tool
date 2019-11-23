@@ -15,7 +15,7 @@ for (let i=0; i<goodtimes.length; i++){
   //time変数と同様、goodtimesに入ってる文字列を数値に変換
 }
 
-let goodgoukei = "視聴済み: "+Math.floor(goodtime/3600)+"時間"+Math.floor((goodtime%3600)/60)+"分"+(goodtime%60)+"秒";
+let goodgoukei = "視聴済み: "+Math.floor(goodtime/3600)+"時間"+Math.floor((goodtime%3600)/60)+"分"+(goodtime%60)+"秒（" + Math.round((goodtime / time) * 100) + "%）";
 
 let remaininggoukei="未視聴: "+Math.floor((time-goodtime)/3600)+"時間"+Math.floor(((time-goodtime)%3600)/60)+"分"+((time-goodtime)%60)+"秒";
 
@@ -25,5 +25,8 @@ if(hyouji === undefined){
 	location.reload();
 }
 
-hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei+"</div></div>"+hyouji[0].innerHTML;
+let movieCount = document.getElementsByClassName('movie').length;
+let testCount = document.getElementsByClassName('evaluation-test').length;
+
+hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei + "<br>" + "授業動画数:" + movieCount + "<br>" + "確認テストの数:" + testCount + "</div></div>"+hyouji[0].innerHTML;
 //表示
