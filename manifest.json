@@ -1,7 +1,7 @@
 {
   "name": "n-yobikou-class-time",
-  "version": "1.0.0",
-  "manifest_version": 2,
+  "version": "1.0.1",
+  "manifest_version": 3,
   "description": "N予備校のサイトで、単元ごとに授業の残り時間や視聴時間を表示し、快適に勉強計画を立てられるように、サポートするChrome拡張機能です。",
   "content_scripts": [{
     "matches": ["https://www.nnn.ed.nico/courses/*/chapters/*"],
