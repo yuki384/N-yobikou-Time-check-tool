@@ -42,10 +42,12 @@ if(hyouji === undefined){
 let allcount = document.getElementsByClassName('movie').length;
 let pluscount = document.getElementsByClassName('movie supplement').length;
 
-console.log(pluscount)
-
 let movieCount = allcount - pluscount;
-let testCount = document.getElementsByClassName('evaluation-test').length;
+
+let eveluation_test = document.getElementsByClassName('evaluation-test').length;
+let essay_test = document.getElementsByClassName('essay-test').length;
+
+let testCount = eveluation_test + essay_test;
 
 hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei + "<br>" + "授業動画数:" + movieCount + "<br>" + "確認テストの数:" + testCount + "</div></div>"+hyouji[0].innerHTML;
 //表示
