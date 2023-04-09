@@ -1,15 +1,27 @@
-
-let times = document.getElementsByClassName('movie-length');
+let alltimes = document.getElementsByClassName('movie-length');
+let plustimes = document.querySelectorAll('.supplement .movie-length');
 let goodtimes = document.querySelectorAll(".good .movie-length");
-let time = 0;
+let alltime = 0;
+let plustime = 0;
 
-for (let i=0; i<times.length; i++){
-  const c1 = times[i].innerText.split(":");
-  time = Number(c1[0])*60+Number(c1[1])+time;
+//全授業時間の合計
+for (let i=0; i<alltimes.length; i++){
+  const all = alltimes[i].innerText.split(":");
+  alltime = Number(all[0])*60+Number(all[1])+alltime;
   //times変数（mm:ssの文字列で渡される）を秒数の数値に変換して合計
 }
 
-let goukei = "すべての授業: "+Math.floor(time/3600)+"時間"+Math.floor((time%3600)/60)+"分"+(time%60)+"秒";
+//N_Plus授業時間の合計
+for (let i=0; i<plustimes.length; i++){
+  const plus = plustimes[i].innerText.split(":");
+  plustime = Number(plus[0])*60+Number(plus[1])+plustime;
+  //times変数（mm:ssの文字列で渡される）を秒数の数値に変換して合計
+}
+
+//必修授業時間
+let time = alltime - plustime;
+
+let goukei = "必修授業: "+Math.floor(time/3600)+"時間"+Math.floor((time%3600)/60)+"分"+(time%60)+"秒";
 
 let goodtime=0;
 for (let i=0; i<goodtimes.length; i++){
@@ -27,9 +39,13 @@ if(hyouji === undefined){
 	location.reload();
 }
 
-let movieCount = document.getElementsByClassName('movie').length;
+let allcount = document.getElementsByClassName('movie').length;
+let pluscount = document.getElementsByClassName('movie supplement').length;
+
+console.log(pluscount)
+
+let movieCount = allcount - pluscount;
 let testCount = document.getElementsByClassName('evaluation-test').length;
 
 hyouji[0].innerHTML="<div class='u-card'><div class='u-list-header typo-list-title'>この単元の進捗状況</div><div class='u-card-inner'>"+goukei+"<br>"+goodgoukei+"<br>"+remaininggoukei + "<br>" + "授業動画数:" + movieCount + "<br>" + "確認テストの数:" + testCount + "</div></div>"+hyouji[0].innerHTML;
 //表示
-
